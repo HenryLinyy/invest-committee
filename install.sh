@@ -34,8 +34,10 @@ if [[ -d "$SKILL_DEST" ]]; then
 fi
 if [[ "${SKIP_SKILL:-0}" != "1" ]]; then
   mkdir -p "$SKILL_DEST"
-  # 只複製 skill 執行需要的檔,排除安裝物與備份
-  ( cd "$SRC_DIR" && tar --exclude='install.sh' --exclude='INSTALL.md' --exclude='*.bak.*' -cf - . ) | ( cd "$SKILL_DEST" && tar -xf - )
+  # 只複製 skill 執行需要的檔,排除安裝物、說明檔、git 與備份
+  ( cd "$SRC_DIR" && tar --exclude='.git' --exclude='.git/*' --exclude='.gitignore' \
+      --exclude='install.sh' --exclude='INSTALL*.md' --exclude='README*.md' --exclude='*.bak.*' \
+      -cf - . ) | ( cd "$SKILL_DEST" && tar -xf - )
   ok "skill 已安裝"
 fi
 

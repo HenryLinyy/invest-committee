@@ -1,31 +1,37 @@
-# invest-committee（投資委員會）
+# invest-committee (Investment Committee)
 
-> 散戶自用的機構級個股研究流程 —— 一句「幫我分析台積電」，跑完六階段研究管線，產出含部位建議的行動計畫與 dashboard。
+**English** | [繁體中文](README.zh-TW.md)
 
-這是一個 [Claude Code](https://claude.com/claude-code) Agent Skill。支援 **台股 / 美股 / 港股 / A股**，依代碼自動路由資料源。僅供研究參考，不執行任何下單。輸出繁體中文。
+> Institutional-grade stock research for retail investors — say "analyze TSMC" and a six-stage research pipeline returns an action plan with position sizing, entry/exit levels, and a visual dashboard.
 
-## 它會做什麼
+An Agent Skill for [Claude Code](https://claude.com/claude-code). Covers **Taiwan / US / Hong Kong / China A-share** markets, auto-routing data sources by ticker. Research support only — it never places orders.
 
-六階段管線：**資料收集 → 基本面成長品質 → 機構觀點共識 → 資金籌碼技術擇時 → 風險雷達 → 行動計畫**。
+> **Language note**: analysis reports are generated in **Traditional Chinese (zh-TW)** — the skill was built for Taiwanese retail investors. The pipeline and methodology are market-agnostic.
 
-| 模式 | 觸發例 |
+## What it does
+
+Six-stage pipeline: **data collection → fundamentals & growth quality → institutional consensus → money flow & technical timing → risk radar → action plan**.
+
+| Mode | Example prompt |
 |---|---|
-| 單股深度分析 | 「幫我分析台積電」「深度分析 NVDA」 |
-| 單環節速查 | 「看 2330 技術面」「掃 NVDA 風險」 |
-| 自選股健檢 | 「健檢自選股」（逐檔掃 watchlist） |
-| 個股比較 | 「比較台積電和聯電」 |
-| 當沖劇本（限台股） | 「力成當沖」「6239 當沖劇本」 |
+| Deep dive on one stock | "幫我分析台積電" / "Analyze NVDA in depth" |
+| Single-angle quick check | "看 2330 技術面" (technicals) / "掃 NVDA 風險" (risk scan) |
+| Watchlist health check | "健檢自選股" — batch-scans your watchlist |
+| Head-to-head comparison | "比較台積電和聯電" / "Compare TSMC vs UMC" |
+| Day-trade playbook (Taiwan only) | "6239 當沖劇本" |
 
-完整版報告另附視覺化 dashboard（HTML），含部位建議、進出場價位與風險清單。
+> Tip: if auto-trigger misses, say "use invest-committee to analyze …" explicitly.
 
-## 設計原則（紅線）
+Full reports ship with an HTML dashboard: position sizing, entry/exit levels, stop-loss, and a risk checklist.
 
-- **不編造數值**：所有價格／財報／籌碼數字必須有來源，查無就標「未獲取」。
-- **不下單**：只做研究，絕不呼叫任何交易 API。
-- **指標不心算**：技術指標一律由 `scripts/indicators.py` 實算。
-- **不隱藏資料缺口**：來源退級、資料過期會在報告中明講。
+## Design principles (hard red lines)
 
-## 安裝
+- **No fabricated numbers** — every price/financial/flow figure needs a source; missing data is labeled as such, never guessed.
+- **No order execution** — research only; the skill never calls any trading API.
+- **No mental math for indicators** — all technical indicators are computed by `scripts/indicators.py`.
+- **No hidden data gaps** — source downgrades and stale data are disclosed in the report.
+
+## Install
 
 ```bash
 cd invest-committee
@@ -33,16 +39,16 @@ chmod +x install.sh
 ./install.sh
 ```
 
-腳本會裝 skill、掛台股資料源（twstock MCP，需 Docker）、建立你的投資設定檔，每步都會先問你確認。手動安裝、Windows、以及美/港/A股資料源（Futu OpenD，選裝）見 **[INSTALL.md](INSTALL.md)**。
+The installer copies the skill, wires up the Taiwan market data source (twstock MCP via Docker), and creates your investor profile — asking for confirmation at every step. **Its prompts are currently in Chinese**; English speakers may prefer the two-minute manual steps in **[INSTALL.en.md](INSTALL.en.md)**.
 
-需求：Claude Code、Python 3；分析台股需 Docker；美/港/A股即時資料選裝 Futu OpenD（不裝會自動退回免費源）。
+Requirements: Claude Code and Python 3; Docker for Taiwan stocks; optional Futu OpenD for US/HK/China-A real-time data (falls back to free sources without it).
 
-> 💰 這是深度研究工具，一次完整六階段分析 token 用量偏高（實測約 15–20 萬）。省錢設定見 [INSTALL.md](INSTALL.md) 的「省 token / 控制費用」一節。
+> 💰 This is a deep-research tool — a full six-stage run uses roughly **150–200K tokens**. Cost-control tips (built-in cheap-model delegation for data fetching, single-stage mode) are in [INSTALL.en.md](INSTALL.en.md).
 
-## 免責聲明
+## Disclaimer
 
-本工具僅供研究與學習參考，**非投資建議**；所有輸出不構成任何買賣邀約，下單決策與盈虧請自行負責。
+For research and educational purposes only — **not investment advice**. Nothing in the output constitutes an offer to buy or sell any security. Trading decisions and outcomes are your own responsibility.
 
-## 授權
+## License
 
 [MIT](LICENSE) © 2026 HenryLinyy
