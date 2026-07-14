@@ -8,6 +8,9 @@ venv/
 # invest-committee runtime data (user's private research)
 .invest-committee/
 
+# Local git worktrees
+.worktrees/
+
 # OS
 .DS_Store
 Thumbs.db
