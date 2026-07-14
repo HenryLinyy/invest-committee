@@ -63,7 +63,6 @@ Requirements: Claude Code and Python 3. Taiwan market data requires Docker. Real
 
 For manual and Windows installation, data-source details, and token controls, see [INSTALL.en.md](INSTALL.en.md).
 
-> 💰 A full six-stage research run uses roughly **150–200K tokens**. For a cheaper first pass, use a focused request such as “Analyze NVDA technicals” or “掃 NVDA 風險”; see [INSTALL.en.md](INSTALL.en.md) for cost controls.
 
 ## Disclaimer
 
