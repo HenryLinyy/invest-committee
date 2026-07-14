@@ -2,48 +2,64 @@
 
 **English** | [繁體中文](README.zh-TW.md)
 
-> Institutional-grade stock research for retail investors — say "analyze TSMC" and a six-stage research pipeline returns an action plan with position sizing, entry/exit levels, and a visual dashboard.
+> Turn “analyze TSMC” into a source-cited investment-committee memo: fundamentals, institutional consensus, technical levels, risk flags, and a position-sizing action plan.
 
-An Agent Skill for [Claude Code](https://claude.com/claude-code). Covers **Taiwan / US / Hong Kong / China A-share** markets, auto-routing data sources by ticker. Research support only — it never places orders.
+An [Agent Skill for Claude Code](https://claude.com/claude-code) that helps retail investors research **specific stocks** with more discipline. It covers **Taiwan / US / Hong Kong / China A-share** markets and routes data sources by ticker. It supports research only — it never places orders.
 
-> **Language note**: analysis reports are generated in **Traditional Chinese (zh-TW)** — the skill was built for Taiwanese retail investors. The pipeline and methodology are market-agnostic.
+> **Language note:** reports are currently generated in **Traditional Chinese (zh-TW)**. The workflow and methodology are market-agnostic.
 
-## What it does
+## Three things you can rely on
 
-Six-stage pipeline: **data collection → fundamentals & growth quality → institutional consensus → money flow & technical timing → risk radar → action plan**.
+- **Every figure needs a source.** Prices, financials, and flow data are cited; unavailable values are labeled as missing.
+- **Data gaps are visible.** Stale data, source fallbacks, and insufficient candle history are disclosed instead of presented as a complete conclusion.
+- **Research never becomes execution.** The skill does not call trading APIs; its output is research support, not investment advice.
 
-| Mode | Example prompt |
+## Try this first (one stage)
+
+In Claude Code, say:
+
+```text
+Analyze NVDA technicals
+```
+
+This runs only the relevant technical-analysis stage, so it is a faster and lower-token way to see whether the workflow fits you. When you are ready, try a full deep dive with “Analyze NVDA in depth.”
+
+## What are you trying to do?
+
+| Your goal | Say this in Claude Code |
 |---|---|
-| Deep dive on one stock | "幫我分析台積電" / "Analyze NVDA in depth" |
-| Single-angle quick check | "看 2330 技術面" (technicals) / "掃 NVDA 風險" (risk scan) |
-| Watchlist health check | "健檢自選股" — batch-scans your watchlist |
-| Head-to-head comparison | "比較台積電和聯電" / "Compare TSMC vs UMC" |
-| Day-trade playbook (Taiwan only) | "6239 當沖劇本" |
+| Research one stock from fundamentals through risk | “幫我分析台積電” / “Analyze NVDA in depth” |
+| Check only technicals or risk | “看 2330 技術面” / “掃 NVDA 風險” |
+| Check the health of a watchlist | “健檢自選股” |
+| Compare two candidate stocks | “比較台積電和聯電” / “Compare TSMC vs UMC” |
+| Build a Taiwan day-trading playbook | “力成當沖” / “6239 當沖劇本” |
 
-> Tip: if auto-trigger misses, say "use invest-committee to analyze …" explicitly.
+A full analysis delivers a source-cited research report and an HTML dashboard with position sizing, entry/exit levels, stop-loss, and a risk checklist. Day-trading support is Taiwan-only.
 
-Full reports ship with an HTML dashboard: position sizing, entry/exit levels, stop-loss, and a risk checklist.
+> If auto-triggering misses, say “use invest-committee to analyze …” explicitly. Theme- or industry-level stock screening is outside this skill’s scope; build a concrete ticker list first, then research each name here.
 
-## Design principles (hard red lines)
+## The six-stage workflow
 
-- **No fabricated numbers** — every price/financial/flow figure needs a source; missing data is labeled as such, never guessed.
-- **No order execution** — research only; the skill never calls any trading API.
-- **No mental math for indicators** — all technical indicators are computed by `scripts/indicators.py`.
-- **No hidden data gaps** — source downgrades and stale data are disclosed in the report.
+**Data collection → fundamentals & growth quality → institutional consensus → money flow & technical timing → risk radar → action plan**
 
-## Install
+Technical indicators are calculated by `scripts/indicators.py`, never estimated mentally. When a primary source is unavailable, the workflow falls back through available sources and records why in the report.
+
+## Fastest start
 
 ```bash
+git clone https://github.com/HenryLinyy/invest-committee.git
 cd invest-committee
 chmod +x install.sh
 ./install.sh
 ```
 
-The installer copies the skill, wires up the Taiwan market data source (twstock MCP via Docker), and creates your investor profile — asking for confirmation at every step. **Its prompts are currently in Chinese**; English speakers may prefer the two-minute manual steps in **[INSTALL.en.md](INSTALL.en.md)**.
+The installer adds the skill, wires up the Taiwan data source (twstock MCP), and creates an investor profile, asking for confirmation at every step.
 
-Requirements: Claude Code and Python 3; Docker for Taiwan stocks; optional Futu OpenD for US/HK/China-A real-time data (falls back to free sources without it).
+Requirements: Claude Code and Python 3. Taiwan market data requires Docker. Real-time US/HK/China-A data can optionally use Futu OpenD; without it, the skill falls back to free sources.
 
-> 💰 This is a deep-research tool — a full six-stage run uses roughly **150–200K tokens**. Cost-control tips (built-in cheap-model delegation for data fetching, single-stage mode) are in [INSTALL.en.md](INSTALL.en.md).
+For manual and Windows installation, data-source details, and token controls, see [INSTALL.en.md](INSTALL.en.md).
+
+> 💰 A full six-stage research run uses roughly **150–200K tokens**. For a cheaper first pass, use a focused request such as “Analyze NVDA technicals” or “掃 NVDA 風險”; see [INSTALL.en.md](INSTALL.en.md) for cost controls.
 
 ## Disclaimer
 
