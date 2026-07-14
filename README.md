@@ -2,6 +2,10 @@
 
 **English** | [繁體中文](README.zh-TW.md)
 
+<p align="center">
+  <img src="assets/conclava.jpg" alt="Conclava avatar" width="220">
+</p>
+
 > Turn “analyze TSMC” into a source-cited investment-committee memo: fundamentals, institutional consensus, technical levels, risk flags, and a position-sizing action plan.
 
 An [Agent Skill for Claude Code](https://claude.com/claude-code) that helps retail investors research **specific stocks** with more discipline. It covers **Taiwan / US / Hong Kong / China A-share** markets and routes data sources by ticker. It supports research only — it never places orders.

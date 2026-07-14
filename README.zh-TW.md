@@ -2,6 +2,10 @@
 
 [English](README.md) | **繁體中文**
 
+<p align="center">
+  <img src="assets/conclava.jpg" alt="Conclava 頭像" width="220">
+</p>
+
 > 一句「幫我分析台積電」，產出一份可追溯資料來源的投資委員會報告：基本面、機構觀點、籌碼與技術、風險燈號，以及受部位上限約束的行動計畫。
 
 這是一個 [Claude Code](https://claude.com/claude-code) Agent Skill，協助散戶用更有紀律的方式研究**具體個股**。支援 **台股 / 美股 / 港股 / A 股**，會依代碼自動路由資料來源；只做研究，不執行任何下單。
