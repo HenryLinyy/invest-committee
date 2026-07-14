@@ -61,7 +61,6 @@ chmod +x install.sh
 
 手動安裝、Windows 支援、資料來源與省 token 設定，請見 [INSTALL.md](INSTALL.md)。
 
-> 💰 完整六階段研究約使用 **15–20 萬 tokens**。若只需要一個角度，優先使用「看 X 技術面」或「掃 X 風險」；詳見 [INSTALL.md](INSTALL.md) 的省 token／控制費用說明。
 
 ## 免責聲明
 
